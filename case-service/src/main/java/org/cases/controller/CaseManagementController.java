@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class CaseManagementController {
   @Autowired CaseManagementServiceImpl caseManagementServiceImpl;
@@ -19,7 +21,7 @@ public class CaseManagementController {
       path = "/api/v1/case/add",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public CaseResponse addCase(@RequestBody CaseRequest request) {
+  public CaseResponse addCase(@Valid @RequestBody CaseRequest request) {
     return caseManagementServiceImpl.addCases(request);
   }
 
@@ -27,15 +29,23 @@ public class CaseManagementController {
       path = "/api/v1/case/{patientId}",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public CaseResponse searchCases(@PathVariable long patientId) {
-    return caseManagementServiceImpl.searchCases(patientId);
+  public CaseResponse searchCasesByPatientId(@PathVariable String patientId) {
+	    return caseManagementServiceImpl.searchCasesByPatientId(patientId);
+  }
+
+  @GetMapping(
+      path = "/api/v1/case/{caseId}",
+      consumes = {"application/json", "application/xml"},
+      produces = {"application/json", "application/xml"})
+  public CaseResponse searchCasesByCaseId(@PathVariable String casetId) {
+	    return caseManagementServiceImpl.searchCasesByPatientId(casetId);
   }
 
   @DeleteMapping(
-      path = "/api/v1/case/{patientId}",
+      path = "/api/v1/case/{caseId}",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public String deleteCases(@PathVariable long patientId) {
-    return caseManagementServiceImpl.deleteCases(patientId);
+  public String deleteCases(@PathVariable String caseId) {
+	    return caseManagementServiceImpl.deleteCases(caseId);
   }
 }

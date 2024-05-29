@@ -1,5 +1,6 @@
 package org.cases.entity;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,13 +16,20 @@ import jakarta.persistence.Table;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cases {
-  @Id @GeneratedValue @Column private long patientId;
+  @Id
+  @GeneratedValue(generator = "custom-id")
+  @GenericGenerator(name = "custom-id", strategy = "org.cases.common.CustomIdGenerator")
+  @Column
+  private String patientId;
 
   @Column private String patientNameInEnglish;
 
   @Column private String patientNameInMarathi;
 
-  @Column private long caseNumber;
+  @GeneratedValue(generator = "custom-id")
+  @GenericGenerator(name = "custom-id", strategy = "org.cases.common.RandomStringGenerator")
+  @Column
+  private String caseId;
 
   @Column private String examinationDate;
 
@@ -33,11 +41,11 @@ public class Cases {
     return new Cases();
   }
 
-  public long getPatientId() {
+  public String getPatientId() {
     return patientId;
   }
 
-  public Cases setPatientId(long patientId) {
+  public Cases setPatientId(String patientId) {
     this.patientId = patientId;
     return this;
   }
@@ -57,15 +65,6 @@ public class Cases {
 
   public Cases setPatientNameInMarathi(String patientNameInMarathi) {
     this.patientNameInMarathi = patientNameInMarathi;
-    return this;
-  }
-
-  public long getCaseNumber() {
-    return caseNumber;
-  }
-
-  public Cases setCaseNumber(long caseNumber) {
-    this.caseNumber = caseNumber;
     return this;
   }
 
@@ -93,6 +92,15 @@ public class Cases {
 
   public Cases setPrescription(String prescription) {
     this.prescription = prescription;
+    return this;
+  }
+
+  public String getCaseId() {
+    return caseId;
+  }
+
+  public Cases setCaseId(String string) {
+    this.caseId = string;
     return this;
   }
 }

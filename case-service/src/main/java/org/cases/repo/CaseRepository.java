@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 @Repository
 @Component
-public interface CaseRepository extends JpaRepository<Cases, Long> {
-	List<Cases> findByPatientId(long patientId);
+public interface CaseRepository extends JpaRepository<Cases, String> {
+	List<Cases> findByPatientId(String patientId);
+	List<Cases> findByCaseId(String caseId);
 }

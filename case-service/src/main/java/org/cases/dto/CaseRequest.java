@@ -2,12 +2,18 @@ package org.cases.dto;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 @Component
 public class CaseRequest {
 
+  @Pattern(regexp = "[A-Za-z]{2,50}")
+  @NotBlank(message = "Patient name in English is mandatory")
   private String patientNameInEnglish;
+
   private String patientNameInMarathi;
-  private long caseNumber;
+
   private String examinationDate;
   private String symptoms;
   private String prescription;
@@ -26,14 +32,6 @@ public class CaseRequest {
 
   public void setPatientNameInMarathi(String patientNameInMarathi) {
     this.patientNameInMarathi = patientNameInMarathi;
-  }
-
-  public long getCaseNumber() {
-    return caseNumber;
-  }
-
-  public void setCaseNumber(long caseNumber) {
-    this.caseNumber = caseNumber;
   }
 
   public String getExaminationDate() {

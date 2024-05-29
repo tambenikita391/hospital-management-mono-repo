@@ -9,10 +9,28 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class CaseResponse {
   private String patientNameInEnglish;
   private String patientNameInMarathi;
-  private long caseNumber;
+  private String caseId;
   private String examinationDate;
   private String symptoms;
   private String prescription;
+  private String patientId;
+
+  public String getCaseId() {
+    return caseId;
+  }
+
+  public void setCaseId(String caseId) {
+    this.caseId = caseId;
+  }
+
+  public String getPatientId() {
+    return patientId;
+  }
+
+  public void setPatientId(String patientId) {
+    this.patientId = patientId;
+  }
+
   private String status;
   private String message;
 
@@ -30,14 +48,6 @@ public class CaseResponse {
 
   public void setPatientNameInMarathi(String patientNameInMarathi) {
     this.patientNameInMarathi = patientNameInMarathi;
-  }
-
-  public long getCaseNumber() {
-    return caseNumber;
-  }
-
-  public void setCaseNumber(long caseNumber) {
-    this.caseNumber = caseNumber;
   }
 
   public String getExaminationDate() {

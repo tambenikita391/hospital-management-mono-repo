@@ -2,6 +2,7 @@ package org.cases.service;
 
 import java.util.List;
 
+import org.cases.common.RandomStringGenerator;
 import org.cases.common.ResponseCode;
 import org.cases.dto.CaseRequest;
 import org.cases.dto.CaseResponse;
@@ -26,7 +27,8 @@ public class CaseManagementServiceImpl implements CaseManagementService {
         Cases.getInstanace()
             .setPatientNameInEnglish(caseRequest.getPatientNameInEnglish())
             .setPatientNameInMarathi(caseRequest.getPatientNameInMarathi())
-            .setCaseNumber(caseRequest.getCaseNumber())
+            .setCaseId("CASE" + RandomStringGenerator.generateRandomString(5))
+            . setPatientId("PAT" + RandomStringGenerator.generateRandomString(5))
             .setExaminationDate(caseRequest.getExaminationDate())
             .setSymptoms(caseRequest.getSymptoms())
             .setPrescription(caseRequest.getPrescription());
@@ -41,8 +43,8 @@ public class CaseManagementServiceImpl implements CaseManagementService {
     return caseResponse;
   }
 
-  public CaseResponse searchCases(long patientId) {
-    List<Cases> receivedCases = caseRepo.findByPatientId(patientId);
+  public CaseResponse searchCasesByPatientId(String patientId) {
+	    List<Cases> receivedCases = caseRepo.findByPatientId(patientId);
     if (receivedCases.isEmpty()) {
       caseResponse.setStatus(ResponseCode.SEARCH_CASES_FAILURE.getStatus());
       caseResponse.setMessage(ResponseCode.SEARCH_CASES_FAILURE.getMessage());
@@ -50,10 +52,12 @@ public class CaseManagementServiceImpl implements CaseManagementService {
       Cases cases = receivedCases.get(0);
       caseResponse.setPatientNameInEnglish(cases.getPatientNameInEnglish());
       caseResponse.setPatientNameInMarathi(cases.getPatientNameInMarathi());
-      caseResponse.setCaseNumber(cases.getCaseNumber());
+      caseResponse.setCaseId(cases.getCaseId());
       caseResponse.setExaminationDate(cases.getExaminationDate());
       caseResponse.setSymptoms(cases.getSymptoms());
       caseResponse.setPrescription(cases.getPrescription());
+      caseResponse.setCaseId(cases.getCaseId());
+      caseResponse.setPatientId(cases.getPatientId());
 
       caseResponse.setStatus(ResponseCode.SEARCH_CASES_SUCCESS.getStatus());
       caseResponse.setMessage(ResponseCode.SEARCH_CASES_SUCCESS.getMessage());
@@ -61,8 +65,30 @@ public class CaseManagementServiceImpl implements CaseManagementService {
     return caseResponse;
   }
 
-  public String deleteCases(long patientId) {
-    caseRepo.deleteById(patientId);
-    return "Case for patientId " + patientId + "  is deleted";
+  public CaseResponse searchCasesByCaseId(String caseId) {
+	    List<Cases> receivedCases = caseRepo.findByPatientId(caseId);
+    if (receivedCases.isEmpty()) {
+      caseResponse.setStatus(ResponseCode.SEARCH_CASES_FAILURE.getStatus());
+      caseResponse.setMessage(ResponseCode.SEARCH_CASES_FAILURE.getMessage());
+    } else {
+      Cases cases = receivedCases.get(0);
+      caseResponse.setPatientNameInEnglish(cases.getPatientNameInEnglish());
+      caseResponse.setPatientNameInMarathi(cases.getPatientNameInMarathi());
+      caseResponse.setCaseId(cases.getCaseId());
+      caseResponse.setExaminationDate(cases.getExaminationDate());
+      caseResponse.setSymptoms(cases.getSymptoms());
+      caseResponse.setPrescription(cases.getPrescription());
+      caseResponse.setCaseId(cases.getCaseId());
+      caseResponse.setPatientId(cases.getPatientId());
+
+      caseResponse.setStatus(ResponseCode.SEARCH_CASES_SUCCESS.getStatus());
+      caseResponse.setMessage(ResponseCode.SEARCH_CASES_SUCCESS.getMessage());
+    }
+    return caseResponse;
+  }
+
+  public String deleteCases(String caseId) {
+	    caseRepo.deleteById(caseId);
+    return "Case for patientId " + caseId + "  is deleted";
   }
 }
