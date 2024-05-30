@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface CaseRepository extends JpaRepository<Cases, String> {
 	List<Cases> findByPatientId(String patientId);
 	List<Cases> findByCaseId(String caseId);
+  String deleteByCaseId(String caseId);
 }

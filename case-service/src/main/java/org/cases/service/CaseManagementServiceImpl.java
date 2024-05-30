@@ -28,46 +28,26 @@ public class CaseManagementServiceImpl implements CaseManagementService {
             .setPatientNameInEnglish(caseRequest.getPatientNameInEnglish())
             .setPatientNameInMarathi(caseRequest.getPatientNameInMarathi())
             .setCaseId("CASE" + RandomStringGenerator.generateRandomString(5))
-            . setPatientId("PAT" + RandomStringGenerator.generateRandomString(5))
+            .setPatientId("PAT" + RandomStringGenerator.generateRandomString(5))
             .setExaminationDate(caseRequest.getExaminationDate())
             .setSymptoms(caseRequest.getSymptoms())
             .setPrescription(caseRequest.getPrescription());
     try {
-      caseRepo.save(cases);
+      cases = caseRepo.save(cases);
     } catch (Exception e) {
       e.printStackTrace();
     }
     caseResponse.setStatus(ResponseCode.ADD_CASES_SUCCESS.getStatus());
     caseResponse.setMessage(ResponseCode.ADD_CASES_SUCCESS.getMessage());
+    caseResponse.setCaseId(cases.getCaseId());
+    caseResponse.setPatientId(cases.getPatientId());
 
-    return caseResponse;
-  }
-
-  public CaseResponse searchCasesByPatientId(String patientId) {
-	    List<Cases> receivedCases = caseRepo.findByPatientId(patientId);
-    if (receivedCases.isEmpty()) {
-      caseResponse.setStatus(ResponseCode.SEARCH_CASES_FAILURE.getStatus());
-      caseResponse.setMessage(ResponseCode.SEARCH_CASES_FAILURE.getMessage());
-    } else {
-      Cases cases = receivedCases.get(0);
-      caseResponse.setPatientNameInEnglish(cases.getPatientNameInEnglish());
-      caseResponse.setPatientNameInMarathi(cases.getPatientNameInMarathi());
-      caseResponse.setCaseId(cases.getCaseId());
-      caseResponse.setExaminationDate(cases.getExaminationDate());
-      caseResponse.setSymptoms(cases.getSymptoms());
-      caseResponse.setPrescription(cases.getPrescription());
-      caseResponse.setCaseId(cases.getCaseId());
-      caseResponse.setPatientId(cases.getPatientId());
-
-      caseResponse.setStatus(ResponseCode.SEARCH_CASES_SUCCESS.getStatus());
-      caseResponse.setMessage(ResponseCode.SEARCH_CASES_SUCCESS.getMessage());
-    }
     return caseResponse;
   }
 
   public CaseResponse searchCasesByCaseId(String caseId) {
-	    List<Cases> receivedCases = caseRepo.findByPatientId(caseId);
-    if (receivedCases.isEmpty()) {
+    List<Cases> receivedCases = caseRepo.findByCaseId(caseId);
+    if (receivedCases.isEmpty() || receivedCases == null) {
       caseResponse.setStatus(ResponseCode.SEARCH_CASES_FAILURE.getStatus());
       caseResponse.setMessage(ResponseCode.SEARCH_CASES_FAILURE.getMessage());
     } else {
@@ -88,7 +68,7 @@ public class CaseManagementServiceImpl implements CaseManagementService {
   }
 
   public String deleteCases(String caseId) {
-	    caseRepo.deleteById(caseId);
+    caseRepo.deleteByCaseId(caseId);
     return "Case for patientId " + caseId + "  is deleted";
   }
 }

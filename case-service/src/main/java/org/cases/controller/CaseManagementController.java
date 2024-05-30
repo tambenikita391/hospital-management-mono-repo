@@ -26,19 +26,11 @@ public class CaseManagementController {
   }
 
   @GetMapping(
-      path = "/api/v1/case/{patientId}",
-      consumes = {"application/json", "application/xml"},
-      produces = {"application/json", "application/xml"})
-  public CaseResponse searchCasesByPatientId(@PathVariable String patientId) {
-	    return caseManagementServiceImpl.searchCasesByPatientId(patientId);
-  }
-
-  @GetMapping(
       path = "/api/v1/case/{caseId}",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public CaseResponse searchCasesByCaseId(@PathVariable String casetId) {
-	    return caseManagementServiceImpl.searchCasesByPatientId(casetId);
+  public CaseResponse searchCasesByCaseId(@PathVariable String caseId) {
+    return caseManagementServiceImpl.searchCasesByCaseId(caseId);
   }
 
   @DeleteMapping(
@@ -46,6 +38,6 @@ public class CaseManagementController {
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
   public String deleteCases(@PathVariable String caseId) {
-	    return caseManagementServiceImpl.deleteCases(caseId);
+    return caseManagementServiceImpl.deleteCases(caseId);
   }
 }
