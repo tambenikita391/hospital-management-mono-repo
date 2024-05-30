@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class PatientManagementController {
 
@@ -20,32 +22,32 @@ public class PatientManagementController {
       path = "/api/v1/patient/add",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public PatientResponse addPatient(@RequestBody PatientRequest request) {
+  public PatientResponse addPatient(@Valid @RequestBody PatientRequest request) {
     return patientManagementServiceImpl.addPatientDetails(request);
   }
 
   @GetMapping(
-      path = "/api/v1/patient/search/{patientId}",
+      path = "/api/v1/patient/{patientId}",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public PatientResponse searchPatientById(@PathVariable long patientId) {
+  public PatientResponse searchPatientById(@PathVariable String patientId) {
     return patientManagementServiceImpl.searchPatientById(patientId);
   }
 
   @PostMapping(
-      path = "/api/v1/patient/update/{patientId}",
+      path = "/api/v1/patient/{patientId}",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
   public PatientResponse updatePatient(
-      @PathVariable long patientId, @RequestBody PatientRequest request) {
+      @PathVariable String patientId, @RequestBody PatientRequest request) {
     return patientManagementServiceImpl.updatePatientDetails(patientId, request);
   }
 
   @DeleteMapping(
-      path = "/api/v1/patient/delete/{patientId}",
+      path = "/api/v1/patient/{patientId}",
       consumes = {"application/json", "application/xml"},
       produces = {"application/json", "application/xml"})
-  public String deletePatient(@PathVariable long patientId) {
+  public String deletePatient(@PathVariable String patientId) {
     return patientManagementServiceImpl.deletePatientDetails(patientId);
   }
 }

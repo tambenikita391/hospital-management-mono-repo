@@ -3,6 +3,7 @@ package org.patient.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.patient.common.RandomStringGenerator;
 import org.patient.common.ResponseCode;
 import org.patient.dto.PatientRequest;
 import org.patient.dto.PatientResponse;
@@ -24,26 +25,28 @@ public class PatientManagementServiceImpl implements PatientManagementService {
   public PatientResponse addPatientDetails(PatientRequest patientRequest) {
     Patient patient =
         Patient.getInstance()
-            .setPatientNameInEnglish(patientRequest.getPatientNameInEnglish())
-            .setPatientNameInMarathi(patientRequest.getPatientNameInMarathi())
-            .setMobileNumber(patientRequest.getMobileNumber())
-            .setGender(patientRequest.getGender())
-            .setBirthDate(patientRequest.getBirthDate())
-            .setFirstExaminationDate(patientRequest.getFirstExaminationDate())
-            .setAddress(patientRequest.getAddress());
+                .setPatientNameInEnglish(patientRequest.getPatientNameInEnglish())
+                .setPatientNameInMarathi(patientRequest.getPatientNameInMarathi())
+                .setMobileNumber(patientRequest.getMobileNumber())
+                .setGender(patientRequest.getGender())
+                .setBirthDate(patientRequest.getBirthDate())
+                .setFirstExaminationDate(patientRequest.getFirstExaminationDate())
+                .setAddress(patientRequest.getAddress())
+                .setPatientId("PAT"
+                        + RandomStringGenerator.generateRandomString(5));
     try {
       patient = patientRepo.save(patient);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    patientRespone.setPatientId(patient.getPateintId());
+    patientRespone.setPatientId(patient.getPatientId());
     patientRespone.setStatus(ResponseCode.ADD_PATIENT_SUCCESS.getStatus());
     patientRespone.setMessage(ResponseCode.ADD_PATIENT_SUCCESS.getMessage());
     return patientRespone;
   }
 
-  public PatientResponse searchPatientById(long patientId) {
-    Optional<Patient> patient = patientRepo.findById(patientId);
+  public PatientResponse searchPatientById(String patientId) {
+    Optional<Patient> patient = patientRepo.findByPatientId(patientId);
     if (patient == null) {
       patientRespone.setStatus(ResponseCode.SEARCH_PATIENT_FAILURE.getStatus());
       patientRespone.setMessage(ResponseCode.SEARCH_PATIENT_FAILURE.getMessage());
@@ -63,8 +66,8 @@ public class PatientManagementServiceImpl implements PatientManagementService {
     return patientRespone;
   }
 
-  public PatientResponse updatePatientDetails(long patientId, PatientRequest patientRequest) {
-    Optional<Patient> receivedPatient = patientRepo.findById(patientId);
+  public PatientResponse updatePatientDetails(String patientId, PatientRequest patientRequest) {
+    Optional<Patient> receivedPatient = patientRepo.findByPatientId(patientId);
     if (receivedPatient == null) {
       patientRespone.setStatus(ResponseCode.UPDATE_PATIENT_FAILURE.getStatus());
       patientRespone.setMessage(ResponseCode.UPDATE_PATIENT_FAILURE.getMessage());
@@ -91,8 +94,8 @@ public class PatientManagementServiceImpl implements PatientManagementService {
     return patientRespone;
   }
 
-  public String deletePatientDetails(long patientId) {
-    patientRepo.deleteById(patientId);
+  public String deletePatientDetails(String patientId) {
+    patientRepo.deleteByPatientId(patientId);
     return "Patient " + "of ID -" + patientId + "  is deleted";
   }
 }

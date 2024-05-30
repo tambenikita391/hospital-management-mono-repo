@@ -1,5 +1,6 @@
 package org.patient.entity;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,9 +18,11 @@ import jakarta.persistence.Table;
 public class Patient {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(generator = "custom-id")
+  @GenericGenerator(name = "custom-id", strategy = "org.patient.common.RandomStringGenerator")
   @Column(nullable = false, insertable = false, updatable = false)
-  private Long pateintId;
+  
+  private String patientId;
 
   @Column(nullable = false)
   private String patientNameInEnglish;
@@ -46,12 +49,12 @@ public class Patient {
     return new Patient();
   }
 
-  public Long getPateintId() {
-    return pateintId;
+  public String getPatientId() {
+    return patientId;
   }
 
-  public Patient setPateintId(Long pateintId) {
-    this.pateintId = pateintId;
+  public Patient setPatientId(String patientId) {
+    this.patientId = patientId;
     return this;
   }
 

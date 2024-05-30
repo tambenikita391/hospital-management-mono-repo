@@ -13,7 +13,7 @@ public class PatientResponse {
   private String gender;
   private String birthDate;
   private String firstExaminationDate;
-  private long patientId;
+  private String patientId;
 
   private String address;
   private String status;
@@ -91,11 +91,11 @@ public class PatientResponse {
     this.gender = gender;
   }
 
-  public long getPatientId() {
+  public String getPatientId() {
     return patientId;
   }
 
-  public void setPatientId(long patientId) {
+  public void setPatientId(String patientId) {
     this.patientId = patientId;
   }
 }

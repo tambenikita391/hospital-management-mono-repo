@@ -10,13 +10,10 @@ public class PatientRequest {
   @Pattern(regexp = "[A-Za-z]{2,40}")
   private String patientNameInEnglish;
 
-  
-  @Pattern(regexp = "([अ-ज्ञ]")
   private String patientNameInMarathi;
 
   @Pattern(regexp = "[789][0-9]{9}")
   private String mobileNumber;
-
   private String gender;
   private String birthDate;
   private String firstExaminationDate;

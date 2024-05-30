@@ -9,10 +9,10 @@ import org.patient.entity.Patient;
 public interface PatientManagementService {
   public PatientResponse addPatientDetails(PatientRequest patientRequest);
 
-  public PatientResponse searchPatientById(long patientId);
+  public PatientResponse searchPatientById(String patientId);
 
-  public PatientResponse updatePatientDetails(long patientId, PatientRequest patientRequest);
+  public PatientResponse updatePatientDetails(String patientId, PatientRequest patientRequest);
 
-  public String deletePatientDetails(long patientId);
+  public String deletePatientDetails(String patientId);
 
 }
