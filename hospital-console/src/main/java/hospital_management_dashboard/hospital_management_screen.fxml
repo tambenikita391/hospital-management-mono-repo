@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hospital_management_dashboard.HospitalManagementScreenController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff771f" height="76.0" stroke="BLACK" strokeType="INSIDE" width="759.0" />
+      <Circle fill="#541090" layoutX="550.0" layoutY="51.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="215.0" layoutY="175.0" text="V" textFill="#f2ecec">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="545.0" layoutY="38.0" text="V" textFill="#f2eded">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="34.0" prefHeight="35.0" prefWidth="401.0" text="Hospital Management Dashboard" textFill="#e4dede">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="571.0" layoutY="39.0" prefHeight="21.0" prefWidth="154.0" text="Nikita (Admin)" textFill="#f5f0f0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="patientButton" layoutX="162.0" layoutY="116.0" mnemonicParsing="false" onAction="#patients" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Patients" textFill="#170101">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="caseButton" layoutX="162.0" layoutY="201.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Cases">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="appointmentButton" layoutX="166.0" layoutY="280.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Appointments">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="userButton" layoutX="166.0" layoutY="368.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Users">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="logOutButton" layoutX="165.0" layoutY="449.0" mnemonicParsing="false" onAction="#logOut" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="LogOut">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

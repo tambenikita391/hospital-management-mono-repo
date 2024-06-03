@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user_login.LoginScreenController">
+   <left>
+      <AnchorPane prefHeight="500.0" prefWidth="319.0" style="-fx-background-color: orange;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="60.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" />
+            <TextArea layoutX="19.0" layoutY="119.0" prefHeight="46.0" prefWidth="282.0" text="Hospital Management" wrapText="true">
+               <font>
+                  <Font name="Bell MT Italic" size="27.0" />
+               </font>
+            </TextArea>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="384.0" BorderPane.alignment="CENTER">
+         <children>
+            <PasswordField fx:id="mobile" layoutX="76.0" layoutY="240.0" prefHeight="38.0" prefWidth="279.0" promptText="Mobile" />
+            <ImageView fitHeight="24.0" fitWidth="35.0" layoutX="43.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@./user%20icon.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="19.0" layoutX="46.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@./key%20image.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="130.0" fitWidth="140.0" layoutX="121.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@./user%20image.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="113.0" layoutY="120.0" prefHeight="36.0" prefWidth="165.0" text="Login here !!">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button fx:id="loginButton" contentDisplay="CENTER" layoutX="46.0" layoutY="327.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="313.0" style="-fx-background-color: Transparent; -fx-background-color: orange; -fx-border-color: purple;" text="Login" textFill="#0b240c">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Button>
+            <Label fx:id="userMessage" layoutX="13.0" layoutY="460.0" prefHeight="30.0" prefWidth="364.0" textFill="#eb3636">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="userName" layoutX="74.0" layoutY="172.0" prefHeight="40.0" prefWidth="278.0" promptText="Username" />
+         </children>
+      </AnchorPane>
+   </right>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
