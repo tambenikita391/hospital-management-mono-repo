@@ -2,8 +2,10 @@ package org.hospital.dto;
 
 import org.springframework.stereotype.Component;
 
-@Component
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Component
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginResponse {
 	private String status;
 	private String message;

@@ -7,14 +7,15 @@ import org.hospital.dto.CaseResponse;
 
 import add_appointments.AddAppointmentScreen;
 import add_patients.AddPatientScreen;
+import add_user.AddUserScreen;
 import common.RestUtilGenerics;
 import hospital_management_dashboard.HospitalManagementScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import user_management_dashboard.UserManagementScreeen;
 
 public class AddCasesScreenController {
   @FXML private TextField symptoms;
@@ -29,32 +30,41 @@ public class AddCasesScreenController {
   @FXML private TextField patientNameInEnglish;
 
   @FXML private Button saveButton;
+
   @FXML private Button logOutButton;
+  @FXML private Label userMessage;
 
   @FXML
   public void save(ActionEvent event) throws Exception {
-    CaseRequest addCase = new CaseRequest();
 
-    addCase.setExaminationDate(examinationDate.getText());
-    addCase.setPatientNameInEnglish(patientNameInEnglish.getText());
-    addCase.setPrescription(prescription.getText());
-    addCase.setSymptoms(symptoms.getText());
+      if (examinationDate.getText() == null || examinationDate.getText().trim().isEmpty() ||
+          patientNameInEnglish.getText() == null || patientNameInEnglish.getText().trim().isEmpty() ||
+          prescription.getText() == null || prescription.getText().trim().isEmpty() ||
+          symptoms.getText() == null || symptoms.getText().trim().isEmpty()) {
+          userMessage.setText("All fields are mandatory, please fill all data");
+          return;
+      }
 
-    try {
-      CaseResponse response =
-          RestUtilGenerics.sendPostRequest(
+      CaseRequest addCase = new CaseRequest();
+      addCase.setExaminationDate(examinationDate.getText().trim());
+      addCase.setPatientNameInEnglish(patientNameInEnglish.getText().trim());
+      addCase.setPatientNameInMarathi(patientNameInMarathi.getText().trim());
+      addCase.setPrescription(prescription.getText().trim());
+      addCase.setSymptoms(symptoms.getText().trim());
+
+      try {
+          CaseResponse response = RestUtilGenerics.sendPostRequest(
               "http://localhost:8083/api/v1/case/add", CaseResponse.class, addCase);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Case Added ");
-    alert.setContentText("Case added!");
-    alert.setHeaderText("Success!!");
-    alert.show();
+          userMessage.setText("Case added successfully !!");
+      } catch (IOException e) {
+          e.printStackTrace();
+          userMessage.setText("Failed to add case: " + e.getMessage());
+      } catch (InterruptedException e) {
+          e.printStackTrace();
+          userMessage.setText("Failed to add case: " + e.getMessage());
+      }
   }
+
 
   @FXML
   private void cancle(ActionEvent event) throws IOException {
@@ -83,6 +93,6 @@ public class AddCasesScreenController {
 
   @FXML
   private void users(ActionEvent event) throws IOException {
-    UserManagementScreeen.showUserManagementScreen();
+    AddUserScreen.showAddUserScreen();
   }
 }

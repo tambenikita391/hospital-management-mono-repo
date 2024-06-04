@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" fx:controller="add_appointments.AddAppointmentScreenController"  minHeight="-Infinity" minWidth="-Infinity" prefHeight="723.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="723.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="add_appointments.AddAppointmentScreenController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f59622" height="79.0" stroke="BLACK" strokeType="INSIDE" width="1152.0" />
       <Label layoutX="-83.0" layoutY="-5.0" prefHeight="97.0" prefWidth="578.0" text="                 Add Appointment" textFill="WHITE">
@@ -98,6 +98,11 @@
       <Label layoutX="1002.0" layoutY="39.0" text="N" textFill="#f5f0f0">
          <font>
             <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="userMessage" layoutX="345.0" layoutY="490.0" prefHeight="36.0" prefWidth="691.0" textFill="#12571b">
+         <font>
+            <Font size="19.0" />
          </font>
       </Label>
    </children>

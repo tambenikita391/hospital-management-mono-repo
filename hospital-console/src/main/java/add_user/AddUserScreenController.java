@@ -8,14 +8,15 @@ import org.hospital.dto.UsersResponse;
 import add_appointments.AddAppointmentScreen;
 import add_cases.AddCasesScreen;
 import add_patients.AddPatientScreen;
+import case_management_dashboard.CaseManagementScreen;
 import common.RestUtilGenerics;
 import hospital_management_dashboard.HospitalManagementScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import user_management_dashboard.UserManagementScreeen;
 
 public class AddUserScreenController {
   @FXML private TextField role;
@@ -30,7 +31,7 @@ public class AddUserScreenController {
 
   @FXML private TextField userName;
 
-  @FXML private TextField password;
+  @FXML private PasswordField password;
 
   @FXML private Button logOutButton;
 
@@ -40,37 +41,46 @@ public class AddUserScreenController {
 
   @FXML private Button casesButton;
 
-  @FXML private TextField confirmPassword;
+  @FXML private PasswordField confirmPassword;
 
   @FXML private Button saveButton;
 
   @FXML private TextField email;
+  @FXML private Label userMessage;
 
   @FXML
   public void save(ActionEvent event) throws Exception {
-    UsersRequest addUser = new UsersRequest();
+    // Check if any field is empty
+    if (userName.getText().isEmpty()
+        || email.getText().isEmpty()
+        || mobile.getText().isEmpty()
+        || role.getText().isEmpty()
+        || password.getText().isEmpty()
+        || confirmPassword.getText().isEmpty()) {
+      userMessage.setText("All fields are mandatory, please fill all data");
+      return;
+    }
 
-    addUser.setUserName(userName.getText());
-    addUser.setEmail(email.getText());
-    addUser.setMobileNumber(mobile.getText());
-    addUser.setRole(role.getText());
-    addUser.setPassword(password.getText());
-    addUser.setConfirmPassword(confirmPassword.getText());
+    UsersRequest addUser = new UsersRequest();
+    addUser.setUserName(userName.getText().trim());
+    addUser.setEmail(email.getText().trim());
+    addUser.setMobileNumber(mobile.getText().trim());
+    addUser.setRole(role.getText().trim());
+    addUser.setPassword(password.getText().trim());
+    addUser.setConfirmPassword(confirmPassword.getText().trim());
 
     try {
       UsersResponse response =
           RestUtilGenerics.sendPostRequest(
               "http://localhost:8081/api/v1/directory/add", UsersResponse.class, addUser);
+      userMessage.setText("User added successfully!!");
     } catch (IOException e) {
       e.printStackTrace();
+      userMessage.setText("Failed to add user: " + e.getMessage());
     } catch (InterruptedException e) {
       e.printStackTrace();
+      userMessage.setText("Failed to add user: " + e.getMessage());
     }
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("User Added ");
-    alert.setContentText("User added!");
-    alert.setHeaderText("Success!!");
-    alert.show();
   }
 
   @FXML
@@ -90,7 +100,7 @@ public class AddUserScreenController {
 
   @FXML
   private void cases(ActionEvent event) throws IOException {
-    AddCasesScreen.showAddCasesScreen();
+    CaseManagementScreen.showCaseManagementScreen();
   }
 
   @FXML
@@ -100,7 +110,7 @@ public class AddUserScreenController {
 
   @FXML
   private void users(ActionEvent event) throws IOException {
-    UserManagementScreeen.showUserManagementScreen();
+    AddUserScreen.showAddUserScreen();
   }
 
   @FXML

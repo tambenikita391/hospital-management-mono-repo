@@ -1,13 +1,12 @@
 package common;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
-import org.hospital.dto.LoginRequest;
-import org.hospital.dto.LoginResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,9 +28,10 @@ public class RestUtilGenerics {
     return bookResponse;
   }
 
-  public static <T> T sendPostRequest(String url, Class<T> responseType, Object bookRequest)
-      throws Exception {
-    String jsonRequestAsString = objectMapper.writeValueAsString(bookRequest);
+  public static <T> T sendPostRequest(String url, Class<T> responseType, Object userPostRequest)
+      throws IOException, InterruptedException {
+
+    String jsonRequestAsString = objectMapper.writeValueAsString(userPostRequest);
 
     HttpClient client = HttpClient.newHttpClient();
 
@@ -43,9 +43,6 @@ public class RestUtilGenerics {
             .build();
 
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-    String strResponse = response.body();
-    System.out.println(strResponse);
 
     T userResponse = objectMapper.readValue(response.body(), responseType);
 
@@ -67,6 +64,23 @@ public class RestUtilGenerics {
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
     T userResponse = objectMapper.readValue(response.body(), responseType);
+    return userResponse;
+  }
+
+  public static <T> T sendDeleteRequest(String url, Class<T> responseType)
+      throws IOException, InterruptedException {
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request =
+        HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .header("Content-Type", "application/json")
+            .DELETE()
+            .build();
+
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+    T userResponse = objectMapper.readValue(response.body(), responseType);
+
     return userResponse;
   }
 }

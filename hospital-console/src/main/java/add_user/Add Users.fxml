@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" fx:controller="add_user.AddUserScreenController" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="add_user.AddUserScreenController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f59622" height="90.0" stroke="BLACK" strokeType="INSIDE" width="1145.0" />
       <Label layoutX="62.0" layoutY="4.0" prefHeight="90.0" prefWidth="188.0" text="Add User" textFill="WHITE">
@@ -65,7 +65,6 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="password" layoutX="531.0" layoutY="456.0" prefHeight="47.0" prefWidth="558.0" promptText="password contains atleast 1 letter(uppercase/lowwercase), 1 special char, 1 digit" style="-fx-background-radius: 14;" />
       <TextField fx:id="role" layoutX="529.0" layoutY="367.0" prefHeight="47.0" prefWidth="558.0" style="-fx-background-radius: 14;" />
       <TextField fx:id="mobile" layoutX="529.0" layoutY="288.0" prefHeight="47.0" prefWidth="558.0" style="-fx-background-radius: 14;" />
       <TextField fx:id="email" layoutX="531.0" layoutY="212.0" prefHeight="47.0" prefWidth="558.0" style="-fx-background-radius: 14;" />
@@ -100,7 +99,6 @@
             <Font size="21.0" />
          </font>
       </Text>
-      <TextField fx:id="confirmPassword" layoutX="529.0" layoutY="542.0" prefHeight="47.0" prefWidth="558.0" style="-fx-background-radius: 14;" />
       <Text layoutX="316.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" wrappingWidth="222.6708984375">
          <font>
             <Font size="21.0" />
@@ -112,5 +110,11 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Label fx:id="userMessage" layoutX="329.0" layoutY="611.0" prefHeight="39.0" prefWidth="654.0" textFill="#147c1f">
+         <font>
+            <Font size="25.0" />
+         </font></Label>
+      <PasswordField fx:id="password" layoutX="531.0" layoutY="453.0" prefHeight="47.0" prefWidth="549.0" style="-fx-background-radius: 14;" />
+      <PasswordField fx:id="confirmPassword" layoutX="531.0" layoutY="542.0" prefHeight="47.0" prefWidth="549.0" style="-fx-background-radius: 14;" />
    </children>
 </Pane>

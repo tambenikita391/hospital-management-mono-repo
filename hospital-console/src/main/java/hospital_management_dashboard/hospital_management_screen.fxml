@@ -15,9 +15,9 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="545.0" layoutY="38.0" text="V" textFill="#f2eded">
+      <Label layoutX="545.0" layoutY="38.0" text="N" textFill="#f2eded">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="17.0" />
          </font>
       </Label>
       <Label layoutX="27.0" layoutY="34.0" prefHeight="35.0" prefWidth="401.0" text="Hospital Management Dashboard" textFill="#e4dede">
@@ -35,17 +35,17 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="caseButton" layoutX="162.0" layoutY="201.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Cases">
+      <Button fx:id="caseButton" layoutX="162.0" layoutY="201.0" mnemonicParsing="false" onAction="#cases" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Cases">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="appointmentButton" layoutX="166.0" layoutY="280.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Appointments">
+      <Button fx:id="appointmentButton" layoutX="166.0" layoutY="280.0" mnemonicParsing="false" onAction="#appointments" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Appointments">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="userButton" layoutX="166.0" layoutY="368.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Users">
+      <Button fx:id="userButton" layoutX="166.0" layoutY="368.0" mnemonicParsing="false" onAction="#addUser" prefHeight="50.0" prefWidth="474.0" style="-fx-background-radius: 14;" text="Users">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

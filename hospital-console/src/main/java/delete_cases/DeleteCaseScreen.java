@@ -1,4 +1,4 @@
-package user_login;
+package delete_cases;
 
 import java.io.IOException;
 import java.net.URL;
@@ -8,13 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-public class LoginScreen {
-  public static void showLoginScreen() throws IOException {
+public class DeleteCaseScreen {
+  public static void showDeleteCaseScreen() throws IOException {
     Parent actorGroup =
         FXMLLoader.load(
             new URL(
-                "file:///C|/Users//tambe//eclipse-workspace//hospital-console//src//main//java//user_login//hospital-login.fxml"));
-    StageFactory.stage.setTitle("LOGIN SCREEN");
+                "file:///C|/Users//tambe//eclipse-workspace//hospital-console//src//main//java//delete_cases//deleteCase.fxml"));
+    StageFactory.stage.setTitle("HOSPITAL MANAGEMENT SCREEN");
     StageFactory.stage.setFullScreen(true);
 
     Scene scene = new Scene(actorGroup);

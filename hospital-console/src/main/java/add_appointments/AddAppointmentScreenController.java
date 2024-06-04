@@ -7,15 +7,16 @@ import org.hospital.dto.AppointmentResponse;
 
 import add_cases.AddCasesScreen;
 import add_patients.AddPatientScreen;
+import add_user.AddUserScreen;
+import case_management_dashboard.CaseManagementScreen;
 import common.RestUtilGenerics;
 import hospital_management_dashboard.HospitalManagementScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import user_management_dashboard.UserManagementScreeen;
 
 public class AddAppointmentScreenController {
   @FXML private TextField appointmentTime;
@@ -42,31 +43,41 @@ public class AddAppointmentScreenController {
 
   @FXML private Button PatientsButton;
 
+  @FXML private Label userMessage;
+
   @FXML
   private void save(ActionEvent event) throws Exception {
-    AppointmentRequest addAppointment = new AppointmentRequest();
+    if (patientNameInEnglish.getText().isEmpty()
+        || patientNameInMarathi.getText().isEmpty()
+        || appointmentTime.getText().isEmpty()
+        || examinationDate.getText().isEmpty()) {
+      userMessage.setText("All fields are mandatory, please fill all data");
+      return;
+    }
 
-    addAppointment.setPatientNameInMarathi(patientNameInEnglish.getText());
-    addAppointment.setPatientNameInEnglish(patientNameInMarathi.getText());
+    AppointmentRequest addAppointment = new AppointmentRequest();
+    addAppointment.setPatientNameInEnglish(patientNameInEnglish.getText());
+    addAppointment.setPatientNameInMarathi(patientNameInMarathi.getText());
     addAppointment.setAppointmentTime(appointmentTime.getText());
     addAppointment.setExaminationDate(examinationDate.getText());
 
     try {
+      // Send a POST request to add the appointment
       AppointmentResponse response =
           RestUtilGenerics.sendPostRequest(
               "http://localhost:8084/api/v1/appointment/add",
               AppointmentResponse.class,
               addAppointment);
-    } catch (IOException e) {
+
+      if (response != null && "Success".equals(response.getStatus())) {
+        userMessage.setText("Appointment added successfully!!");
+      } else {
+        userMessage.setText("Error, failed to add appointment.");
+      }
+    } catch (IOException | InterruptedException e) {
       e.printStackTrace();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
+      userMessage.setText("Error, failed to add appointment.");
     }
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Appointment Added ");
-    alert.setContentText("Appointment added!");
-    alert.setHeaderText("Success!!");
-    alert.show();
   }
 
   @FXML
@@ -86,7 +97,7 @@ public class AddAppointmentScreenController {
 
   @FXML
   private void cases(ActionEvent event) throws IOException {
-    AddCasesScreen.showAddCasesScreen();
+    CaseManagementScreen.showCaseManagementScreen();
   }
 
   @FXML
@@ -96,6 +107,6 @@ public class AddAppointmentScreenController {
 
   @FXML
   private void users(ActionEvent event) throws IOException {
-    UserManagementScreeen.showUserManagementScreen();
+    AddUserScreen.showAddUserScreen();
   }
 }
