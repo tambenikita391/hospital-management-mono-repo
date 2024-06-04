@@ -1,5 +1,6 @@
 package org.appointment.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.appointment.common.RandomStringGenerator;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Component
 public class AppointmentManagementServiceImpl implements AppointmentManagementService {
-  @Autowired AppointmentRepository appointmantRepo;
+  @Autowired AppointmentRepository appointmentRepo;
   @Autowired AppointmentRequest appointmentRequest;
   @Autowired AppointmentResponse appointmentResponse;
 
@@ -30,7 +31,7 @@ public class AppointmentManagementServiceImpl implements AppointmentManagementSe
             .setAppointmentTime(appointmentRequest.getAppointmentTime());
 
     try {
-      appointment = appointmantRepo.save(appointment);
+      appointment = appointmentRepo.save(appointment);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -43,7 +44,7 @@ public class AppointmentManagementServiceImpl implements AppointmentManagementSe
   }
 
   public AppointmentResponse searchAppointment(String patientId) {
-    Optional<Appointment> receivedAppointment = appointmantRepo.findByPatientId(patientId);
+    Optional<Appointment> receivedAppointment = appointmentRepo.findByPatientId(patientId);
     if (receivedAppointment.isEmpty()) {
       appointmentResponse.setStatus(ResponseCode.SEARCH_APPOINTMENT_FAILURE.getStatus());
       appointmentResponse.setMessage(ResponseCode.SEARCH_APPOINTMENT_FAILURE.getMessage());
@@ -62,8 +63,48 @@ public class AppointmentManagementServiceImpl implements AppointmentManagementSe
     return appointmentResponse;
   }
 
-  public String deleteAppointment(String appointmentId) {
-    appointmantRepo.deleteById(appointmentId);
-    return "Appoint of patientId " + appointmentId + "  is deleted";
+  public AppointmentResponse searchAppointmentByAppointmentId(String appointmentId) {
+    List<Appointment> receivedAppointment = appointmentRepo.findByAppointmentId(appointmentId);
+    if (receivedAppointment.isEmpty()) {
+      appointmentResponse.setStatus(ResponseCode.SEARCH_APPOINTMENT_FAILURE.getStatus());
+      appointmentResponse.setMessage(ResponseCode.SEARCH_APPOINTMENT_FAILURE.getMessage());
+    } else {
+      Appointment appointment = receivedAppointment.get(0);
+      appointmentResponse.setPatientNameInEnglish(appointment.getPatientNameInEnglish());
+      appointmentResponse.setPatientNameInMarathi(appointment.getPatientNameInMarathi());
+      appointmentResponse.setAppointmentId(appointment.getAppointmentId());
+      appointmentResponse.setExaminationDate(appointment.getExaminationDate());
+      appointmentResponse.setAppointmentTime(appointment.getAppointmentTime());
+
+      appointmentResponse.setStatus(ResponseCode.SEARCH_APPOINTMENT_SUCCESS.getStatus());
+      appointmentResponse.setMessage(ResponseCode.SEARCH_APPOINTMENT_SUCCESS.getMessage());
+    }
+
+    return appointmentResponse;
+  }
+
+  public AppointmentResponse deleteAppointment(String appointmentId) {
+    List<Appointment> optionalAppointment = appointmentRepo.findByAppointmentId(appointmentId);
+
+    if (optionalAppointment.isEmpty()) {
+      appointmentResponse.setStatus(ResponseCode.SEARCH_APPOINTMENT_SUCCESS.getStatus());
+      appointmentResponse.setMessage(ResponseCode.SEARCH_APPOINTMENT_SUCCESS.getMessage());
+    } else {
+      Appointment appointment = optionalAppointment.get(0);
+      appointment.setStatus(Appointment.Status.DELETED);
+      appointmentRepo.save(appointment);
+
+      appointmentResponse.setStatus(ResponseCode.SEARCH_APPOINTMENT_SUCCESS.getStatus());
+      appointmentResponse.setMessage(ResponseCode.SEARCH_APPOINTMENT_SUCCESS.getMessage());
+      populatedCaseResponse(appointmentResponse, appointment);
+    }
+    return appointmentResponse;
+  }
+
+  private void populatedCaseResponse(AppointmentResponse response, Appointment appointment) {
+    response.setAppointmentId(appointment.getAppointmentTime());
+    response.setExaminationDate(appointment.getExaminationDate());
+    response.setPatientNameInEnglish(appointment.getPatientNameInEnglish());
+    response.setPatientNameInMarathi(appointment.getPatientNameInMarathi());
   }
 }

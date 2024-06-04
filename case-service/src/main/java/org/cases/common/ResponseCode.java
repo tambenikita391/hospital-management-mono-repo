@@ -5,7 +5,9 @@ public enum ResponseCode {
   SEARCH_CASES_SUCCESS("Success", "Case found"),
   SEARCH_CASES_FAILURE("Fail", "Case not found"),
   UPDATE_CASES_SUCCESS("success", "Case updated"),
-  UPDATE_CASES_FAILURE("Fail", "Case not updated");
+  UPDATE_CASES_FAILURE("Fail", "Case not updated"),
+  DELETE_CASES_SUCCESS("success", "Case deleted"),
+  DELETE_CASES_FAILURE("Fail", "Case not deleted");
 
   private final String status;
   private final String message;

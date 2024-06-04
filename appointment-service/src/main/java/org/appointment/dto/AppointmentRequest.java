@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotBlank;
 public class AppointmentRequest {
   @NotBlank(message = "Patient name in English is mandatory")
   private String patientNameInEnglish;
-
   private String patientNameInMarathi;
   private String examinationDate;
   private String appointmentTime;

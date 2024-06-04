@@ -8,5 +8,7 @@ public interface AppointmentManagementService {
 
   public AppointmentResponse searchAppointment(String patientId);
 
-  public String deleteAppointment(String patientId);
+  public AppointmentResponse deleteAppointment(String patientId);
+
+  public AppointmentResponse searchAppointmentByAppointmentId(String appointmentId);
 }

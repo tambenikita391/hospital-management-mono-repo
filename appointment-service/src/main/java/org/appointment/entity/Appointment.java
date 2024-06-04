@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,9 +15,11 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Appointment {
-  @Id @GeneratedValue(generator = "custom-id")
+  @Id
+  @GeneratedValue(generator = "custom-id")
   @GenericGenerator(name = "custom-id", strategy = "org.appointment.common.RandomStringGenerator")
-   @Column private String patientId;
+  @Column
+  private String patientId;
 
   @Column private String patientNameInEnglish;
 
@@ -86,5 +90,20 @@ public class Appointment {
   public Appointment setAppointmentTime(String appointmentTime) {
     this.appointmentTime = appointmentTime;
     return this;
+  }
+
+  public enum Status {
+    DELETED
+  }
+
+  @Enumerated(EnumType.STRING)
+  private Status status;
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
   }
 }

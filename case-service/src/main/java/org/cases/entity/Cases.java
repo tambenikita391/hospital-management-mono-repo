@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -102,5 +104,20 @@ public class Cases {
   public Cases setCaseId(String string) {
     this.caseId = string;
     return this;
+  }
+
+  @Enumerated(EnumType.STRING)
+  private Status status;
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+  public enum Status {
+    DELETED
   }
 }

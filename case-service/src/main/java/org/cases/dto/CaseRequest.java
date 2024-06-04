@@ -14,6 +14,7 @@ public class CaseRequest {
 
   private String patientNameInMarathi;
 
+
   private String examinationDate;
   private String symptoms;
   private String prescription;
